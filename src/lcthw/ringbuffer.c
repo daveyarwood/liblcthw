@@ -31,9 +31,9 @@ int RingBuffer_write(RingBuffer * buffer, char *data, int length)
         buffer->start = buffer->end = 0;
     }
 
-    check(length <= RingBuffer_available_space(buffer),
-            "Not enough space: %d request, %d available",
-            RingBuffer_available_data(buffer), length);
+    check(length <= RingBuffer_available_data(buffer),
+            "Not enough space: %d requested, %d available",
+            length, RingBuffer_available_data(buffer));
 
     void *result = memcpy(RingBuffer_ends_at(buffer), data, length);
     check(result != NULL, "Failed to write data into buffer.");
